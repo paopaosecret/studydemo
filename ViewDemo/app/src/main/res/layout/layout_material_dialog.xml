@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="266dp"
+    android:minHeight="200dp"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/material_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/material_card"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/contentView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="21dp"
+                android:layout_marginRight="16dp"
+                android:textColor="#333333"
+                android:textSize="17sp"
+                tools:text="Material title"/>
+
+            <ScrollView
+                android:layout_weight="1"
+                android:id="@+id/message_content_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                tools:layout_height="700dp">
+
+                <LinearLayout
+                    android:id="@+id/message_content_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+
+                    <TextView
+                        android:id="@+id/message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1.1"
+                        android:textColor="#666666"
+                        android:textSize="16sp"
+                        tools:text="message"/>
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"
+            android:layout_gravity="right"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btn_n"
+                style="@style/ActionButton"
+                android:textColor="#2196f3"
+                android:stateListAnimator="@null"
+                android:textSize="14sp"
+                tools:text="CANCEL"/>
+
+            <Button
+                android:id="@+id/btn_p"
+                style="@style/ActionButton"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="12dp"
+                android:stateListAnimator="@null"
+                android:textColor="#2196f3"
+                android:textSize="14sp"
+                tools:text="OK"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

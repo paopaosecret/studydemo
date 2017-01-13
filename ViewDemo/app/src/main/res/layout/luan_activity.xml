@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ui.activity.MainActivity">
+
+    <Button
+        android:id="@+id/btn_move"
+        android:layout_marginLeft="20px"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="点我移动" />
+
+    <View
+        android:id="@+id/v_event"
+        android:layout_marginLeft="40px"
+        android:layout_below="@id/btn_move"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:background="#ff0000"/>
+    <com.xbing.com.viewdemo.ui.customview.MoveView
+        android:layout_below="@id/v_event"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/mv_view"/>
+    <View
+        android:id="@+id/v_event2"
+        android:layout_marginLeft="40px"
+        android:layout_below="@id/mv_view"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:background="#00f0f0"/>
+</RelativeLayout>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.MainActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_luan"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:text="跳到luanActivity" />
+            <Button
+                android:id="@+id/btn_animator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="跳动动画页面"/>
+
+            <Button
+                android:text="跳动参数页面"
+                android:id="@+id/btn_param"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:text="跳动notify页面"
+                android:id="@+id/btn_notify"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:text="跳动Image页面"
+                android:id="@+id/btn_image"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:text="跳动TwoList页面"
+                android:id="@+id/btn_twolist"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:text="跳动LineChart页面"
+                android:id="@+id/btn_linechart"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:text="跳动Chart页面"
+                android:id="@+id/btn_chart"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_db"
+                android:text="跳到数据库测试页面"/>
+
+            <Button
+                android:id="@+id/btn_bluetooth"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到Bluetooth页面"/>
+            <Button
+                android:id="@+id/btn_pickerview"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到pickView页面"/>
+
+
+            <Button
+                android:id="@+id/btn_zip"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到压缩页面"/>
+
+            <Button
+                android:id="@+id/btn_service"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到Service页面"/>
+
+            <Button
+                android:id="@+id/btn_stop_service"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关闭Service"/>
+
+            <Button
+                android:id="@+id/btn_fragment"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到Fragment页面"/>
+            <Button
+                android:id="@+id/btn_gif"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到gif页面"/>
+
+            <Button
+                android:id="@+id/btn_test"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到test页面"/>
+
+            <Button
+                android:id="@+id/btn_opengl_es"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到OpenglEs页面"/>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

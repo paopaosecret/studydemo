@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.xbing.com.viewdemo.ui.customview.HorizontalListView
+        android:layout_width="200dp"
+        android:layout_height="240dp"
+        android:id="@+id/hlv_view">
+    </com.xbing.com.viewdemo.ui.customview.HorizontalListView>
+
+  <!--  <com.xbing.com.viewdemo.ui.customview.ValueItemView
+        android:id="@+id/viv_value"
+        android:layout_width="40dp"
+        android:layout_height="240dp"
+        android:background="#00ff00"/>-->
+
+    <com.xbing.com.viewdemo.ui.customview.MyCalenarView
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+    </com.xbing.com.viewdemo.ui.customview.MyCalenarView>
+
+</LinearLayout>

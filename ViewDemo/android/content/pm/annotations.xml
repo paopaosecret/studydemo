@@ -1,0 +1,5 @@
+<root>
+  <item name='android.content.pm.PackageManager COMPONENT_ENABLED_STATE_DEFAULT'>
+    <annotation name='java.lang.annotation.Deprecated' />
+  </item>
+</root>

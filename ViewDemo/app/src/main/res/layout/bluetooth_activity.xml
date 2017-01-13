@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_open"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="打开蓝牙" />
+
+        <Button
+            android:id="@+id/btn_open_prompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="带提醒的打开蓝牙" />
+
+        <Button
+            android:id="@+id/btn_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="关闭蓝牙"/>
+
+        <Button
+            android:id="@+id/btn_scan_device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="扫描蓝牙设备"/>
+
+        <Button
+            android:id="@+id/btn_connect_device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="连接蓝牙设备"/>
+
+        <Button
+            android:id="@+id/btn_find_server"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="发现蓝牙服务"/>
+
+        <Button
+            android:id="@+id/btn_disconnect_device"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="断开连接蓝牙"/>
+
+        <Button
+            android:id="@+id/btn_read_characteristic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="读蓝牙特征"/>
+
+        <Button
+            android:id="@+id/btn_write_characteristic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="写蓝牙特征"/>
+
+        <Button
+            android:id="@+id/btn_notify_open"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="打开蓝牙Notify"/>
+
+        <Button
+            android:id="@+id/btn_notify_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="关闭蓝牙Notify"/>
+        <Button
+            android:id="@+id/btn_get_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="获取连接状态"
+            />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="蓝牙学习"/>
+
+
+    </LinearLayout>
+</ScrollView>

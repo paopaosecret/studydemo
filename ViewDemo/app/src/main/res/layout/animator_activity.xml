@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示动画"
+        android:id="@+id/btn_move"/>
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_select"
+            android:text="不更换当前动画"/>
+        <RadioButton
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_noselect"
+            android:text="更换当前动画"/>
+
+    </RadioGroup>
+    <TextView
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#ff0000"
+        android:textColor="#00ff00"
+        android:text="animator"
+        android:id="@+id/tv_animator"/>
+
+
+
+</LinearLayout>

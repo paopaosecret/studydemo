@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.xbing.com.viewdemo.ui.activity.NotifyActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hello word" />
+
+    <!--当前api sdk不支持setLatestEventInfo()方法 -->
+    <Button
+        android:id="@+id/btn_showNOtifyOld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示通知old"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_showNOtify11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示通知11"/>
+
+    <Button
+        android:id="@+id/btn_showNOtify16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示通知16"/>
+
+    <Button
+        android:id="@+id/btn_showNOtifyDefine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示通知自定义"/>
+
+    <Button
+        android:id="@+id/btn_cancelNotifyById"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="取消通知通过id"/>
+
+    <Button
+        android:id="@+id/btn_cancelNotifyAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="取消全部通知"/>
+
+</LinearLayout>
