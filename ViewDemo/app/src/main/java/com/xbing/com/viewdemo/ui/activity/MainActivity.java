@@ -199,6 +199,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.btn_rly).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,RLYActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
+
     }
 
 }

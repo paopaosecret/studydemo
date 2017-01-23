@@ -52,6 +52,7 @@ public class Sequence {
             sequence.add(Integer.toString(i));
         }
 
+
         Iterator iterator = sequence.getIterator();
         while(iterator.hasNext()){
             System.out.println(iterator.getCurrent()+ "");

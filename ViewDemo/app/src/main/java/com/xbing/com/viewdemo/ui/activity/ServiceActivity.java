@@ -1,24 +1,30 @@
 package com.xbing.com.viewdemo.ui.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.xbing.com.viewdemo.R;
 import com.xbing.com.viewdemo.ui.service.MyService;
 
+
 /**
  * Created by zhaobing on 2016/10/24.
  */
 
 public class ServiceActivity extends Activity implements View.OnClickListener{
-
+    private static final String ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
+    private static final String ACTION_NOTIFICATION_LISTENER_SETTINGS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
     private static final String TAG = MyService.class.getSimpleName();
 
     private MyService.MyBinder mBinder;
@@ -55,6 +61,19 @@ public class ServiceActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        boolean isEnabledNLS = isEnabled();
+
+        if (!isEnabledNLS) {
+            showConfirmDialog();
+        }
+
+        toggleNotificationListenerService();
+
+    }
+
+    @Override
     public void onClick(View v) {
 
         Intent intent = new Intent(ServiceActivity.this, MyService.class);
@@ -79,4 +98,64 @@ public class ServiceActivity extends Activity implements View.OnClickListener{
                 break;
         }
     }
+
+    private boolean isEnabled() {
+        String pkgName = getPackageName();
+        final String flat = Settings.Secure.getString(getContentResolver(),
+                ENABLED_NOTIFICATION_LISTENERS);
+        if (!TextUtils.isEmpty(flat)) {
+            final String[] names = flat.split(":");
+            for (int i = 0; i < names.length; i++) {
+                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
+                if (cn != null) {
+                    if (TextUtils.equals(pkgName, cn.getPackageName())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private void toggleNotificationListenerService() {
+        PackageManager pm = getPackageManager();
+        pm.setComponentEnabledSetting(
+                new ComponentName(this, MyService.class),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+
+        pm.setComponentEnabledSetting(
+                new ComponentName(this, MyService.class),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+    }
+
+
+
+
+    private void openNotificationAccess() {
+        startActivity(new Intent(ACTION_NOTIFICATION_LISTENER_SETTINGS));
+    }
+
+    private void showConfirmDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage("Please enable NotificationMonitor access")
+                .setTitle("Notification Access")
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setCancelable(true)
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                openNotificationAccess();
+                            }
+                        })
+                .setNegativeButton(android.R.string.cancel,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // do nothing
+                            }
+                        })
+                .create().show();
+    }
+
+
+
 }
