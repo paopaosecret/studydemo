@@ -1,0 +1,91 @@
+泛型
+泛型术语解释：适用于广泛的类型
+java泛型概念：java se5提出泛型概念：实现了参数化类型的概念，使代码可以应用于多种类型
+
+泛型类：
+public class Manager<T> {
+
+    private T state;
+
+    public T getState() {
+        return state;
+    }
+
+    public void setState(T state) {
+        this.state = state;
+    }
+}
+
+泛型接口
+public interface Generator<T> {
+    T next();
+}
+
+泛型方法：
+public class ParaTypeMethod {
+
+    public <T> void printf(T bean){
+       System.out.println(bean.getClass().getSimpleName());
+    }
+}
+注意：是不是泛型类与有没有泛型方法没有任何关系（如上面的类中有泛型方法但却不是泛型类）
+
+可变参数可以和泛型共存
+public void printf(T... args){
+        if(args != null && args.length>0){
+            for(T item: args){
+                System.out.println(item.toString());
+            }
+        }
+    }
+}
+
+
+元组：
+Tuple<A>  一元元组
+Tuple<A,B> 二元元组
+...
+
+
+边界：
+边界使得你可以在用于泛型的参数类型上设置限制条件
+
+设置边界好处：
+无界的泛型参数将被擦除为Object,所以只能将泛型参数当做Object使用，因此只能调用Object的方法
+如果将参数限制为某个类型子集，就可以用这些类型子集来调用方法，为了实现这种限制，Java泛型重用了extends
+
+
+
+泛型擦除：泛型类型只有在静态类型检测期间才出现，在此之后程序中的所有泛型类型都将被擦除
+，替换为非泛型上界。例如List<T> 这样的注解将被擦除为List,而普通的类型变量将被擦除为
+Object.
+
+java泛型是使用擦除来实现的，这就意味着在使用泛型时，任何具体的类型信息都被擦除
+因此在运行时List<String> 和List<Integer> 是相同的类型，这两种类型都被擦除为
+"原生类型"，也就是List
+
+但是ArrayLsit<Apple>不能看做是List<Fruit>的子类，同一泛型可以对应多个版本（因为参数类型是不确定的），不同版本的泛型实例是不兼容的。
+List<Fruit> objects = new ArrayList<Apple>();  //编译错误不能将一个Apple容器赋值给一个Fruit容器，即使Apple继承自Fruit
+
+? 通配符
+但是，有时想在两种类型之间建立向上转型的关系，这就是通配符所允许的
+例如：List<? extends Fruit> objects = new ArrayList<Apple>();
+
+List<? extends Fruit> ：具有任何从Fruit继承的类型的列表，但是并不意味着可以持有任何的Fruit,通配符的引用是明确的类型
+objects.add(new Apple());  //错误
+objects 不能向其中添加任何对象
+
+
+超类通配符 <? super MyClass>
+
+List<? super Fruit> fruits = new ArrayList<Fruit>();
+fruits.add(new Apple());   可以
+由于持有的对象都是Fruit的基类，所以向其中添加Fruit对象和其子类对象都是可以的
+
+无界通配符 <?>
+
+
+
+
+
+

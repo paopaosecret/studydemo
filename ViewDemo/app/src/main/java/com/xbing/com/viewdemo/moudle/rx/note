@@ -1,0 +1,18 @@
+观察者模式
+Button.setOnClickListener(new OnClickListener(){
+    void onClick();
+})
+
+Button:被观察者
+OnClickListener:观察者
+.setOnClickListener(): 订阅
+onClick():   点击事件
+
+当被观察者订阅了观察者时，如果Button（被观察者）订阅了OnClickListener(观察者)
+当有事件click(被观察者)时，会触发观察者的onClick（）方法。
+
+
+RxJava
+Observable :被观察者
+Subscriber继承自Observer:观察者
+subscribe():发生订阅关系

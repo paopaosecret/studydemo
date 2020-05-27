@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#b1b1b1">
+    </android.support.v4.view.ViewPager>
+    <com.viewpagerindicator.TabPageIndicator
+        android:id="@+id/indicator"
+        android:layout_height="5dp"
+        android:layout_width="50dp"
+        android:layout_marginTop="3dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <com.xbing.com.viewdemo.ui.customview.banner.Banner
+        android:id="@+id/banner"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@drawable/shop_bannerbg_icon"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_title"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#ff0000"
+        app:tabMode="scrollable"
+        >
+    </android.support.design.widget.TabLayout>
+
+    <TextView
+        android:id="@+id/tv_show_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tab text 1"/>
+</LinearLayout>

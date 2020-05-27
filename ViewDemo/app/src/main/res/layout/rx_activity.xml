@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="show result"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:id="@+id/btn_click1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="订阅"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:id="@+id/btn_click2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="启动一个线程"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:id="@+id/btn_click3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="链式调用"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:id="@+id/btn_click4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="api"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:id="@+id/btn_click5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="stream"/>
+
+</LinearLayout>

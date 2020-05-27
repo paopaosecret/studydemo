@@ -1,0 +1,13 @@
+MVC模式：
+Model-View-Controller
+View：这层指的是UI界面，用于向用户展示数据并且接受用户的输入
+Model:这层是指JavaBean实体类，用于保存实例数据
+Controller:更新实例数据和UI界面
+
+在MVC模式中Activity应该属于View,但是很多时候也承担了Controller的东西在里面，这对于开发和维护来说，
+耦合度高。把Activity的View和Controller抽离出来就变成了View和Presenter，这就是MVP模式
+
+MVP模式：
+核心思想：把Activity中的UI逻辑抽象成View接口，把业务逻辑抽象成Presenter接口
+Presenter是View和Model之间的桥梁，View和Model不可以直接交互，这也是MVP和MVC之间最大的区别。
+Model-View-Presenter

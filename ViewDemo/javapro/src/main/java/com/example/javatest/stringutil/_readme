@@ -1,0 +1,34 @@
+重要对象解析：
+    1、WritableWorkbook：用于创建打开Excel文件
+    2、WritableSheet：用于创建Excel中的页签
+    3、Label：将单元格指定为文本型，并写入字符串
+    4、Number：将单元格指定为数字型，并可写入数字
+    5、DateTime：将单元格指定为日期型，并可写入日期
+    6、WritableCellFormat：用于格式化单元格
+    7、WritableFont：用于格式化字体
+
+Java读取Excel流程
+    1、打开工作文件Workbook，在此之前先用java的io流创建或者读取文件
+    2、打开工作表Sheet
+    3、读行，然后读列（行和列是从0开始的）
+    4、进行数据进行操作
+
+Excel的写入流程：
+    1、用WritableWorkbook创建Excel文件
+    2、用WritableSheet创建页签
+    3、用Label、Number、DateTime等创建单元格内容
+    4、在创建单元格内容时，我们可以给写一个格式化方法，对单元格内容进行格式化
+    5、格式化主要包括2类：单元格格式化（WritableCellFormat）、值的格式化（WritableFont）
+
+
+
+常见问题解决：
+1.错误异常：jxl.read.biff.BiffException: Unable to recognize OLE stream
+解决：将excel文件打开并且另存为xls格式，应为jxl只支持07以前的excel版本
+
+2.字符乱码问题
+解决：在打开Excel文件的时候，使用:
+    WorkbookSettings workbookSettings = new WorkbookSettings();
+    workbookSettings.setEncoding("ISO-8859-1");
+    Workbook wb = Workbook.getWorkbook(is,workbookSettings);
+
