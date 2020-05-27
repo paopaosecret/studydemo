@@ -1,8 +1,16 @@
 package com.xbing.com.viewdemo.ui.activity;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//import com.facebook.stetho.common.LogUtil;
 import com.xbing.com.viewdemo.R;
 import com.xbing.com.viewdemo.db.MySqliteDBHelper;
 import com.xbing.com.viewdemo.db.dao.StudentDao;
@@ -18,12 +27,12 @@ import com.xbing.com.viewdemo.db.model.Student;
 /**
  * Created by zhaobing on 2016/8/26.
  */
-public class DBActivity extends Activity {
+public class DBActivity extends FragmentActivity implements LoaderCallbacks<Cursor> {
 
     StudentDao dao;
     private TextView mResult;
     private EditText mCount;
-
+    private LoaderManager mLoadManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,5 +155,46 @@ public class DBActivity extends Activity {
                 mResult.setText("本次操作耗时：" + (t2-t1)+"ms");
             }
         });
+
+        mLoadManager = getSupportLoaderManager();
+        mLoadManager.initLoader(100, null, this);
+    }
+
+    public String authority = "com.xbing.com.viewdemo.data.database.radiomap";
+    public String table = "t_student";
+    public String[] table_column={
+            "id",
+            "name",
+            "gender",
+            "mobile"
+    };
+    public Uri mLoadUri = new Uri.Builder().scheme(ContentResolver.SCHEME_CONTENT).authority(authority).appendPath(table).build();
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+//        LogUtil.i("loader","loader:onCreateLoader" );
+        CursorLoader loader = new CursorLoader(this,mLoadUri,table_column,"",null,"id ASC");
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if(data != null && data.moveToFirst()){
+            do
+            {
+
+                long id = data.getLong(data.getColumnIndex("id"));
+                String name = data.getString(data.getColumnIndex("name"));
+                String gender = data.getString(data.getColumnIndex("gender"));
+                String mobile = data.getString(data.getColumnIndex("mobile"));
+//                LogUtil.i("loader","loader:onLoadFinished id = " + id + ",name = " + name +",gender = " + gender + ",mobile =" + mobile );
+            }while (data.moveToNext());
+        }else{
+//            LogUtil.i("loader","loader:onLoadFinished data == null" );
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader loader) {
+
     }
 }

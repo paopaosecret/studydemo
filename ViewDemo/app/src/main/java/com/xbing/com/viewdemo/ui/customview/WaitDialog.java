@@ -28,13 +28,25 @@ public class WaitDialog extends Dialog {
     public WaitDialog(Context context, int themeResId) {
         super(context, themeResId);
         mLayoutInflater = LayoutInflater.from(context);
-        mWaitView = (ViewGroup)mLayoutInflater.inflate(R.layout.dialog_wait,null);
+        mWaitView = (ViewGroup)mLayoutInflater.inflate(R.layout.dialog_wait, null);
         mDialogText = (TextView) mWaitView.findViewById(R.id.waitName);
     }
 
     public void show(String msg){
         setContentView(mWaitView);
         setCancelable(true);
+        show();
+        mDialogText.setText(msg);
+    }
+
+    /**
+     *
+     * @param msg  底部文字
+     * @param enableCancel         点击页面是否可取消
+     */
+    public void show(String msg, boolean enableCancel){
+        setContentView(mWaitView);
+        setCancelable(enableCancel);
         show();
         mDialogText.setText(msg);
     }

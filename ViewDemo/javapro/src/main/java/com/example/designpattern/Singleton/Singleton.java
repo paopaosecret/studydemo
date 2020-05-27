@@ -16,7 +16,7 @@ public class Singleton {
     /**
      * 2.声明一个公外部调用的单例
      */
-    private static Singleton instance;
+    private volatile static Singleton instance;
 
     /**
      * 2.实现上述单例
@@ -24,7 +24,7 @@ public class Singleton {
      */
     public static Singleton getInstance() {
         if (instance == null) {
-            synchronized (instance) {       //保证线程安全
+            synchronized (Singleton.class) {       //保证线程安全
                 if (instance == null) {
                     instance = new Singleton();
                 }

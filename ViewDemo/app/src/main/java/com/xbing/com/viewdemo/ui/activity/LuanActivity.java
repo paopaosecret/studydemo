@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 import com.xbing.com.viewdemo.R;
+import com.xbing.com.viewdemo.service.utils.Cn2Spell;
 
 /**
  * Created by zhaobing on 2016/7/1.
@@ -163,6 +166,41 @@ public class LuanActivity extends Activity{
     }
 
     public void kong(){
+        Log.i("testSpell", "testSpell--->" + Cn2Spell.getInstance().getSelling("中国"));
+        Log.i("testSpell", "testSpell--->" + Cn2Spell.getInstance().getSelling("日本"));
+        Log.i("testSpell", "testSpell--->" + Cn2Spell.getInstance().getSelling("张三"));
+        Log.i("testSpell", "testSpell--->" + Cn2Spell.getInstance().getSelling("李四"));
+        Log.i("testSpell", "testSpell--->" + Cn2Spell.getInstance().getSelling("赵兵"));
+        Log.i("testSpell", "testSpell--->" + Cn2Spell.getInstance().getSelling("王志强"));
+        Log.i("testSpell", "testSpell--->" + Cn2Spell.getInstance().getSelling("白惠凯"));
 
+//        getSkypeContactList();
+    }
+
+    private void getSkypeContactList() {
+        Cursor c = getContentResolver().query
+                (ContactsContract.RawContacts.CONTENT_URI,
+                        new String[] { ContactsContract.RawContacts.CONTACT_ID,ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY,ContactsContract.RawContacts.DISPLAY_NAME_ALTERNATIVE },
+                        ContactsContract.RawContacts.ACCOUNT_TYPE + "= ?",
+                        new String[] { "com.skype.contacts.sync" }, null);
+
+        int contactNameColumn = c
+                .getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_ALTERNATIVE);
+        int contactIdColumn = c.getColumnIndex(ContactsContract.RawContacts.CONTACT_ID);
+        int contactNumberColumn = c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+        int contactUriColumn = c.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI);
+
+
+        int count = c.getCount();
+
+        for (int i = 0; i < count; i++) {
+            c.moveToPosition(i);
+            String name = c.getString(contactNameColumn);
+//            String id = c.getString(contactIdColumn);
+            String id = " id";
+            String uri = " uri";//c.getString(contactUriColumn);
+            String phoneNumber = " number";//c.getString(contactNumberColumn);
+            Log.i("KEY", "key:\nid:" + id + ",uri:" + uri +  ",name:" + name + ",phone:" + phoneNumber );
+        }
     }
 }

@@ -1,12 +1,18 @@
 package com.xbing.com.viewdemo;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.baidu.mapapi.SDKInitializer;
+import com.fm.openinstall.OpenInstall;
 import com.xbing.com.viewdemo.db.MySqliteDBHelper;
 import com.xbing.com.viewdemo.db.dao.StudentDao;
+import com.xbing.com.viewdemo.db.greenDao.DaoManager;
 import com.xbing.com.viewdemo.db.model.Student;
+import com.xbing.com.viewdemo.ui.service.FloatService;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECInitParams;
@@ -17,6 +23,9 @@ import com.yuntongxun.ecsdk.im.ECMessageNotify;
 import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
 
 import java.util.List;
+
+//import com.facebook.stetho.Stetho;
+//import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 /**
  * Created by zhaobing on 2016/8/23.
@@ -33,10 +42,22 @@ public class MyApplication extends Application {
         return instance;
     }
 
+    public static Context getContext(){
+        return instance;
+    }
+
+
     @Override
     public void onCreate() {
         super.onCreate();
 
+//        Stetho.initialize(//Stetho初始化
+//                Stetho.newInitializerBuilder(this)
+//                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+//                        .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+//                        .build()
+//        );
+        SDKInitializer.initialize(getApplicationContext());
         StudentDao dao = new StudentDao(this);
 
         Student student = new Student();
@@ -52,9 +73,41 @@ public class MyApplication extends Application {
         MySqliteDBHelper dbHelper = new MySqliteDBHelper(this);
         dbHelper.getWritableDatabase();
         mActivityManager = MyActivityManager.getInstance();
-        this.registerActivityLifecycleCallbacks(mActivityManager);
 
-        init();
+        MySharedPreferences.getInstances(this).putBoolean(MySharedPreferences.SP_KEY_DEBUG_SWITCH,true);
+
+        this.registerActivityLifecycleCallbacks(mActivityManager);
+//        Intent intent = new Intent(this, MyService.class);
+//        startService(intent);
+//        init();
+
+        initGreenDao();
+//        startService(new Intent(this, HeartService.class));
+        if (isMainProcess()) {
+            OpenInstall.init(this);
+        }
+
+    }
+
+
+    public void stopFloatView(){
+        Intent intent = new Intent(this, FloatService.class);
+        stopService(intent);
+    }
+
+    public boolean isMainProcess() {
+        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return getApplicationInfo().packageName.equals(appProcess.processName);
+            }
+        }
+        return false;
+    }
+
+    private void initGreenDao() {
+        DaoManager.init(this);
     }
 
     private void init() {
@@ -199,4 +252,6 @@ public class MyApplication extends Application {
         });
 
     }
+
+
 }

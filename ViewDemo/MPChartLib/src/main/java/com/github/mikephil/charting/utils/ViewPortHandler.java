@@ -7,7 +7,7 @@ import android.view.View;
 
 /**
  * Class that contains information about the charts current viewport settings, including offsets, scale & translation
- * levels, ...
+ * levels, ...  //包含当前图表视口设置信息，包括平移，缩放，偏移等
  *
  * @author Philipp Jahoda
  */

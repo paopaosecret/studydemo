@@ -102,33 +102,33 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
 
     /**
      * paint object used for drawing the description text in the bottom right
-     * corner of the chart
+     * corner of the chart 绘制底部description 文本的画笔对象
      */
     protected Paint mDescPaint;
 
     /**
      * paint object for drawing the information text when there are no values in
-     * the chart
+     * the chart  没有设置数据时，绘制信息文本的画笔对象
      */
     protected Paint mInfoPaint;
 
     /**
-     * description text that appears in the bottom right corner of the chart
+     * description text that appears in the bottom right corner of the chart，底部description 文本
      */
     protected String mDescription = "Description";
 
     /**
-     * the object representing the labels on the x-axis
+     * the object representing the labels on the x-axis   x轴上的标签对象
      */
     protected XAxis mXAxis;
 
     /**
-     * if true, touch gestures are enabled on the chart
+     * if true, touch gestures are enabled on the chart    图标的手势开关
      */
     protected boolean mTouchEnabled = true;
 
     /**
-     * the legend object containing all data associated with the legend
+     * the legend object containing all data associated with the legend  //图例对象，可设置图例的字体颜色，大小，位置等等
      */
     protected Legend mLegend;
 
@@ -155,12 +155,12 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
      */
     private String mNoDataTextDescription;
 
-    protected LegendRenderer mLegendRenderer;
+    protected LegendRenderer mLegendRenderer;  //Legend的渲染器
 
     /**
      * object responsible for rendering the data
      */
-    protected DataRenderer mRenderer;
+    protected DataRenderer mRenderer;       //数据渲染器
 
     protected IHighlighter mHighlighter;
 
@@ -237,7 +237,7 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
         mXAxis = new XAxis();
 
         mDescPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mDescPaint.setColor(Color.BLACK);
+        mDescPaint.setColor(Color.RED);
         mDescPaint.setTextAlign(Align.RIGHT);
         mDescPaint.setTextSize(Utils.convertDpToPixel(9f));
 

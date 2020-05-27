@@ -10,10 +10,14 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xbing.com.viewdemo.R;
+import com.xbing.com.viewdemo.service.utils.ReflexDemo;
 
+import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -82,9 +88,9 @@ public class BluetoothActivity extends Activity implements View.OnClickListener{
                 public void run() {
                     if (BluetoothGatt.GATT_SUCCESS == status1) {
 
-//                        Log.i("onCharacteristicWrite",characteristic.getDescriptor(UUID.fromString("0x2800")).getUuid().toString());
+//                        ProxyTalker.i("onCharacteristicWrite",characteristic.getDescriptor(UUID.fromString("0x2800")).getUuid().toString());
 
-//                        Log.i("onCharacteristicWrite1",characteristic.getDescriptor(UUID.fromString("00002800-0000-1000-8000-00805f9b34fb")).getUuid().toString());
+//                        ProxyTalker.i("onCharacteristicWrite1",characteristic.getDescriptor(UUID.fromString("00002800-0000-1000-8000-00805f9b34fb")).getUuid().toString());
                         Toast.makeText(BluetoothActivity.this,"onCharacteristicWrite:success",Toast.LENGTH_SHORT).show();
                         //启动采集标志
                         if("0000aaa7-0000-1000-8000-00805f9b34fb".equals(characteristic.getUuid().toString())){
@@ -236,9 +242,39 @@ public class BluetoothActivity extends Activity implements View.OnClickListener{
             super.handleMessage(msg);
             if(msg.what == CLOSE_SCAN){
                 mBluetoothAdapter.stopLeScan(mCallback);
+                // 如果正在搜索，就先取消搜索
+                if (mBluetoothAdapter.isDiscovering()) {
+                    mBluetoothAdapter.cancelDiscovery();
+                }
             }
         }
     };
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // TODO Auto-generated method stub
+
+            String action = intent.getAction();
+            // 获得已经搜索到的蓝牙设备
+            if (action.equals(BluetoothDevice.ACTION_FOUND)) {
+                BluetoothDevice device = intent
+                        .getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                // 搜索到的不是已经绑定的蓝牙设备
+                if(TextUtils.isEmpty(mAddress)){
+                    mAddress = device.getAddress();
+                }
+                mScanBuffer.append("address1:"+device.getAddress()+";name:"+device.getName()+"\n");
+                mTVResult.setText(mScanBuffer.toString());
+            } else if (action
+                    .equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {
+                setProgressBarIndeterminateVisibility(false);
+                setTitle("搜索蓝牙设备");
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,8 +295,17 @@ public class BluetoothActivity extends Activity implements View.OnClickListener{
         findViewById(R.id.btn_notify_open).setOnClickListener(this);
         findViewById(R.id.btn_notify_close).setOnClickListener(this);
         findViewById(R.id.btn_get_state).setOnClickListener(this);
+        findViewById(R.id.btn_open_discover).setOnClickListener(this);
+        findViewById(R.id.btn_close_discover).setOnClickListener(this);
+        findViewById(R.id.btn_test_reflex).setOnClickListener(this);
         mBluetoothManager = (BluetoothManager)getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = mBluetoothManager.getAdapter();
+        // 注册用以接收到已搜索到的蓝牙设备的receiver
+        IntentFilter mFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(mReceiver, mFilter);
+        // 注册搜索完时的receiver
+        mFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        registerReceiver(mReceiver, mFilter);
     }
 
     @Override
@@ -301,8 +346,18 @@ public class BluetoothActivity extends Activity implements View.OnClickListener{
             closeBluetoothNotify();
         }else if(v.getId() == R.id.btn_get_state){
             getConnectionState();
+        }else if(v.getId() == R.id.btn_test_reflex){
+            testReflex();
+        }else if(v.getId() == R.id.btn_open_discover){
+            setDiscoverableTimeout(100);
+            Toast.makeText(this,"打开蓝牙可见性",Toast.LENGTH_SHORT).show();
+        }else if(v.getId() == R.id.btn_close_discover){
+            closeDiscoverableTimeout();
+            Toast.makeText(this,"关闭蓝牙可见性",Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
     /**
      * public static final int STATE_CONNECTED
@@ -387,12 +442,14 @@ public class BluetoothActivity extends Activity implements View.OnClickListener{
         }
     }
 
+
     private void discoverServer() {
         if(mBluetoothGatt != null){
             mBluetoothGatt.discoverServices();
         }else{
             Toast.makeText(this,"先去扫描并且连接蓝牙",Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void readCharacteristic() {
@@ -441,8 +498,16 @@ public class BluetoothActivity extends Activity implements View.OnClickListener{
 
     private void scanBluetoothdevice() {
         mScanBuffer.setLength(0);
+        // 如果正在搜索，就先取消搜索
+        if (mBluetoothAdapter.isDiscovering()) {
+            mBluetoothAdapter.cancelDiscovery();
+        }
+        // 开始搜索蓝牙设备,搜索到的蓝牙设备通过广播返回
+        mBluetoothAdapter.startDiscovery();
         mBluetoothAdapter.startLeScan(mCallback);
         mHandler.sendEmptyMessageDelayed(CLOSE_SCAN,5000);
+
+
     }
 
     private void closeBluetooth(){
@@ -462,5 +527,66 @@ public class BluetoothActivity extends Activity implements View.OnClickListener{
             mBluetoothAdapter.enable();//强制打开蓝牙，不提醒用户
             Toast.makeText(this,"打开蓝牙",Toast.LENGTH_SHORT).show();
         }
+    }
+    private void testReflex() {
+        /**
+         * 步骤（3步）：
+         * 第一步：获取反射方法的类对象
+         *
+         * 第二步：通过反射类的getMethod（）方法获取Method对象，参数：第一个为方法名以字符串形式，剩下的为参数类的class对象
+         *
+         * 第三步：调用Method对象的invoke()方法，参数：第一个为该方法的类对象，剩下的为方法的参数值
+         *
+         * 注意：最好加上setAccessible(true)：值为 true 则指示反射的对象在使用时应该取消 Java 语言访问检查。
+         * 值为 false 则指示反射的对象应该实施 Java 语言访问检查。
+         */
+        ReflexDemo reflex = new ReflexDemo(this);
+        try{
+            Method sayHello = ReflexDemo.class.getMethod("sayHello", String.class, int.class);
+            sayHello.setAccessible(true);
+            sayHello.invoke(reflex,"abcd",1024);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(this,"调用隐藏方法失败",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void setDiscoverableTimeout(int timeout) {
+        BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();
+        try {
+            Method setDiscoverableTimeout = BluetoothAdapter.class.getMethod("setDiscoverableTimeout", int.class);
+            setDiscoverableTimeout.setAccessible(true);
+            Method setScanMode =BluetoothAdapter.class.getMethod("setScanMode", int.class,int.class);
+            setScanMode.setAccessible(true);
+
+            setDiscoverableTimeout.invoke(adapter, timeout);
+            setScanMode.invoke(adapter, BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE,timeout);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this,"打开失败",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void closeDiscoverableTimeout() {
+        BluetoothAdapter adapter=BluetoothAdapter.getDefaultAdapter();
+        try {
+            Method setDiscoverableTimeout = BluetoothAdapter.class.getMethod("setDiscoverableTimeout", int.class);
+            setDiscoverableTimeout.setAccessible(true);
+            Method setScanMode =BluetoothAdapter.class.getMethod("setScanMode", int.class,int.class);
+            setScanMode.setAccessible(true);
+
+            setDiscoverableTimeout.invoke(adapter, 1);
+            setScanMode.invoke(adapter, BluetoothAdapter.SCAN_MODE_CONNECTABLE,1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this,"关闭失败",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
     }
 }

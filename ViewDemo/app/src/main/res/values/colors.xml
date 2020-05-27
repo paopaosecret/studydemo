@@ -15,4 +15,18 @@
     <color name="hor_bg">#b268f3</color>
     <color name="hor_txt">#523498</color>
 
+    <color name="saffron">#F4B63E</color>
+    <color name="eggplant">#663D4E</color>
+    <color name="sienna">#EB6460</color>
+
+    <color name="heart_rate_title">#ff2d6d</color>
+    <color name="fat_burn">#FFFFEE46</color>
+    <color name="fat_high">#fffcd559</color>
+    <color name="cardio">#ffa334</color>
+    <color name="peak">#ff672e</color>
+    <color name="chart_line">#cccccc</color>
+    <color name="chart_time">#999999</color>
+    <color name="gray_9">#999999</color>
+    <color name="white">#ffffff</color>
+    <color name="navpage">#ffffff</color>
 </resources>

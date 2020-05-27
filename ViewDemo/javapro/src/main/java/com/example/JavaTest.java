@@ -1,13 +1,20 @@
 package com.example;
 
 import com.example.javatest.DigestUtils;
+import com.example.javatest.stringutil.Contant;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by bing.zhao on 2016/12/2.
@@ -27,15 +34,48 @@ public class JavaTest {
         return 1;
     }
     static int x;
-    public static void main(String args[]) {
+//    public static void main(String args[]) {
+//        getStringFileList("F:\\excel" + File.separator + "res");
+//    }
 
-        Date date = new Date();
-        System.out.println(date.toLocaleString());
-        System.out.println(date.toGMTString());
-        System.out.println(TimeZone.getDefault());
-        testUseDST(TimeZone.getDefault());
-        System.out.println("TimeZone:"+TimeZone.getDefault().getOffset(date.getTime())/3600/1000 + ",useDayLight:" + TimeZone.getDefault().inDaylightTime(date));
-        testTimeZone();
+    public static void main(String[] args)  {
+        List data = null;
+        try{
+            data.size();
+        }catch (Exception e){
+            System.out.println("异常");
+        }
+    }
+
+
+    public static List<String> getStringFileList(String path){
+        String[] list = null;
+        List<String> strList = new ArrayList<>();
+        File root = new File(path);
+        list = root.list();
+        for(String str : list){
+            for(String item : Contant.XML_NAME){
+                if(item.equals(str)){
+                    strList.add(Contant.ROOT_FILE_PATH + File.separator + item + File.separator + "strings.xml");
+                    System.out.println(Contant.ROOT_FILE_PATH + File.separator + item + File.separator + "strings.xml");
+                }
+            }
+        }
+        return strList;
+    }
+
+
+    public static String getTimeLineForAm(long timestamp)
+    {
+        Date date = new Date(timestamp);
+        SimpleDateFormat formatter = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+        String str = formatter.format(date);
+        if(str.contains("a.m.")){
+            str = str.replaceAll("a.m.","AM");
+        }else if(str.contains("p.m.")){
+            str = str.replaceAll("p.m.","PM");
+        }
+        return str;
     }
 
     /*
@@ -106,5 +146,12 @@ public class JavaTest {
                 "SimpleTimeZone is a concrete subclass of TimeZone that represents a time zone for use with a Gregorian calendar. ");
 
         Thread t ;
+    }
+
+    public void sum(){}
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
     }
 }

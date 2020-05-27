@@ -15,7 +15,23 @@
         android:id="@+id/btn_showdialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="显示对话框"
+        android:text="显示一个按钮对话框"
+        android:layout_gravity="bottom"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:id="@+id/btn_showdialog2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示两个对话框"
+        android:layout_gravity="bottom"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:id="@+id/btn_showdialog3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="显示没有title对话框"
         android:layout_gravity="bottom"/>
 
     <Button

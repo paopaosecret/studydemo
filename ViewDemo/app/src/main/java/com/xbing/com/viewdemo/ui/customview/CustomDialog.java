@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xbing.com.viewdemo.R;
@@ -189,30 +190,11 @@ public class CustomDialog {
         return this;
     }
 
-
-    public Button getPositiveButton() {
-        return mPositiveButton;
-    }
-
-
-    public Button getNegativeButton() {
-        return mNegativeButton;
-    }
-
-
     public CustomDialog setPositiveButton(String text, final View.OnClickListener listener) {
         this.pText = text;
         this.pListener = listener;
         return this;
     }
-
-
-    public CustomDialog setNegativeButton(int resId, final View.OnClickListener listener) {
-        this.nId = resId;
-        this.nListener = listener;
-        return this;
-    }
-
 
     public CustomDialog setNegativeButton(String text, final View.OnClickListener listener) {
         this.nText = text;
@@ -251,7 +233,7 @@ public class CustomDialog {
         private ViewGroup mMessageContentRoot;
         private TextView mMessageView;
         private Window mAlertDialogWindow;
-        private LinearLayout mButtonLayout;
+        private RelativeLayout mButtonLayout;
 
 
         private Builder() {
@@ -265,7 +247,7 @@ public class CustomDialog {
                     .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MASK_STATE);
             Window dialogWindow = mAlertDialog.getWindow();
             WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-            lp.width = dip2px(266);
+            lp.width = dip2px(280);
             lp.height = dip2px(200);
             dialogWindow.setAttributes(lp);
 
@@ -274,7 +256,7 @@ public class CustomDialog {
                     new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
             View contentView = LayoutInflater.from(mContext)
-                    .inflate(R.layout.layout_material_dialog, null);
+                    .inflate(R.layout.dialog_layout, null);
             contentView.setFocusable(true);
             contentView.setFocusableInTouchMode(true);
 
@@ -284,7 +266,7 @@ public class CustomDialog {
 
             mTitleView = (TextView) mAlertDialogWindow.findViewById(R.id.title);
             mMessageView = (TextView) mAlertDialogWindow.findViewById(R.id.message);
-            mButtonLayout = (LinearLayout) mAlertDialogWindow.findViewById(R.id.buttonLayout);
+            mButtonLayout = (RelativeLayout) mAlertDialogWindow.findViewById(R.id.buttonLayout);
             mPositiveButton = (Button) mButtonLayout.findViewById(R.id.btn_p);
             mNegativeButton = (Button) mButtonLayout.findViewById(R.id.btn_n);
             mMessageContentRoot = (ViewGroup) mAlertDialogWindow.findViewById(
@@ -576,6 +558,19 @@ public class CustomDialog {
 
 
     /**
+     * show dialog with no title
+     *
+     * @param msg
+     * @param btn1
+     * @param listener1
+     * @param btn2
+     * @param listener2
+     */
+    public void showDialog(String msg, String btn1, View.OnClickListener listener1, String btn2, View.OnClickListener listener2){
+        setMessage(msg).setPositiveButton(btn1, listener1).setNegativeButton(btn2,listener2).show();
+    }
+
+    /**
      * show dialog with one button
      *
      * @param title
@@ -584,7 +579,7 @@ public class CustomDialog {
      * @param listener1
      */
     public void showDialog(String title, String msg, String btn1, View.OnClickListener listener1){
-        setTitle(title).setMessage(msg).setPositiveButton("ok", listener1).show();
+        setTitle(title).setMessage(msg).setPositiveButton(btn1, listener1).show();
     }
 
     /**
@@ -598,6 +593,6 @@ public class CustomDialog {
      * @param listener2
      */
     public void showDialog(String title, String msg, String btn1, View.OnClickListener listener1, String btn2, View.OnClickListener listener2){
-        setTitle(title).setMessage(msg).setPositiveButton("ok", listener1).setNegativeButton("cancel",listener2).show();
+        setTitle(title).setMessage(msg).setPositiveButton(btn1, listener1).setNegativeButton(btn2,listener2).show();
     }
 }

@@ -30,6 +30,8 @@ public class ZipActivity extends Activity implements View.OnClickListener{
     private static final String zipPath = Environment.getExternalStorageDirectory().getAbsolutePath()+
             File.separator+"viewdemo"+File.separator+"zip";
 
+    private static final int HANDLER_WHAT_CANCEL_DIALOG = 102;
+
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -44,6 +46,10 @@ public class ZipActivity extends Activity implements View.OnClickListener{
                 }else{
                     Toast.makeText(ZipActivity.this,"上传成功:" + result ,Toast.LENGTH_SHORT).show();
                     Log.e("upload","upload:" + result);
+                }
+            }else if(msg.what == 102){
+                if(waitDialog != null && waitDialog.isShowing()){
+                    waitDialog.dismiss();
                 }
             }
         }
@@ -84,9 +90,10 @@ public class ZipActivity extends Activity implements View.OnClickListener{
             if (waitDialog == null) {
                 waitDialog = new WaitDialog(ZipActivity.this,R.style.translucent_dialog);
             }
-            waitDialog.show("正在上传文件");
+            waitDialog.show("loading",false);
+            mHandler.sendEmptyMessageDelayed(HANDLER_WHAT_CANCEL_DIALOG,4000);
         }else if(v.getId() == R.id.btn_closedialog){
-            if (waitDialog != null) {
+            if (waitDialog != null && waitDialog.isShowing()) {
                 waitDialog.dismiss();
             }
         }

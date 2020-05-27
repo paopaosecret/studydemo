@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
@@ -119,12 +120,15 @@ public class LineChartRenderer extends LineRadarRenderer {
                 break;
 
             case HORIZONTAL_BEZIER:
-                drawHorizontalBezier(dataSet);
+                drawHorizontalBezier(c,dataSet);
                 break;
         }
 
         mRenderPaint.setPathEffect(null);
     }
+
+    protected void drawHorizontalBezier(Canvas c,ILineDataSet dataSet) {}
+
 
     protected void drawHorizontalBezier(ILineDataSet dataSet) {
 
@@ -810,4 +814,6 @@ public class LineChartRenderer extends LineRadarRenderer {
             return circleBitmaps[index % circleBitmaps.length];
         }
     }
+
+
 }

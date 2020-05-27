@@ -1,6 +1,5 @@
 package com.xbing.com.viewdemo.ui.customview;
 
-import java.util.Date;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xbing.com.viewdemo.R;
+
+import java.util.Date;
 
 public class ItemView extends FrameLayout{
 
@@ -136,16 +137,16 @@ public class ItemView extends FrameLayout{
 		int realTextSize = (fmi.bottom-fmi.top)/2;
 		int imageSize = (cellHeight-realTextSize)/4;
 		int topMargin = (int) (imageSize*1.5);
-//		Log.i("test ", "textSize -> "+textView.getTextSize());
-//		Log.i("test ", "fmi.top -> "+fmi.top);
-//		Log.i("test ", "fmi.bottom -> "+fmi.bottom);
-//		Log.i("test ", "fmi.ascent -> "+fmi.ascent);
-//		Log.i("test ", "fmi.descent -> "+fmi.descent);
-//		Log.i("test ", "fmi.leading -> "+fmi.leading);
+//		ProxyTalker.i("test ", "textSize -> "+textView.getTextSize());
+//		ProxyTalker.i("test ", "fmi.top -> "+fmi.top);
+//		ProxyTalker.i("test ", "fmi.bottom -> "+fmi.bottom);
+//		ProxyTalker.i("test ", "fmi.ascent -> "+fmi.ascent);
+//		ProxyTalker.i("test ", "fmi.descent -> "+fmi.descent);
+//		ProxyTalker.i("test ", "fmi.leading -> "+fmi.leading);
 //		
-//		Log.i("test ", "imageSize ->"+imageSize);
-//		Log.i("test ", "cellWidth ->"+cellWidth);
-//		Log.i("test ", "cellHeight ->"+cellHeight);
+//		ProxyTalker.i("test ", "imageSize ->"+imageSize);
+//		ProxyTalker.i("test ", "cellWidth ->"+cellWidth);
+//		ProxyTalker.i("test ", "cellHeight ->"+cellHeight);
 		
 		LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		lp.height = imageSize;

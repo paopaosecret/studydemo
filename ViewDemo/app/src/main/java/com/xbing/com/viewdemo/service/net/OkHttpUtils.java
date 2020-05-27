@@ -177,7 +177,6 @@ public class OkHttpUtils
                 } catch (Exception e)
                 {
                     sendFailResultCallback(call, e, finalCallback, id);
-
                 }
 
             }

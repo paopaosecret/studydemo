@@ -3,6 +3,7 @@ package com.xbing.com.viewdemo.ui.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -10,12 +11,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.xbing.com.viewdemo.R;
 import com.xbing.com.viewdemo.ui.service.MyService;
+
+import java.util.Set;
 
 
 /**
@@ -69,8 +73,9 @@ public class ServiceActivity extends Activity implements View.OnClickListener{
             showConfirmDialog();
         }
 
-        toggleNotificationListenerService();
-
+        if(isNotificationListenerServiceEnabled(this)){
+            toggleNotificationListenerService();
+        }
     }
 
     @Override
@@ -113,6 +118,18 @@ public class ServiceActivity extends Activity implements View.OnClickListener{
                     }
                 }
             }
+        }
+        return false;
+    }
+
+    private static boolean isNotificationListenerServiceEnabled(Context context) {
+        Set<String> packageNames = NotificationManagerCompat.getEnabledListenerPackages(context);
+        Log.i(TAG,"isNotificationListenerServiceEnabled");
+        for(String str : packageNames){
+            Log.i(TAG,"isNotificationListenerServiceEnabled:" + str);
+        }
+        if (packageNames.contains(context.getPackageName())) {
+            return true;
         }
         return false;
     }

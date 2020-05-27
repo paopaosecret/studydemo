@@ -7,4 +7,8 @@
     <dimen name="action_button_text_size">14sp</dimen>
     <dimen name="action_button_min_width">56dp</dimen>
     <dimen name="action_button_padding_horizontal">4dp</dimen>
+    <dimen name="drag_item_normal_height">48dip</dimen>
+    <dimen name="drag_item_expand_height">96dip</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_10">10sp</dimen>
 </resources>

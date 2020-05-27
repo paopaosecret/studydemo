@@ -1,8 +1,5 @@
 package com.xbing.com.viewdemo.ui.customview;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -18,6 +15,9 @@ import android.widget.Toast;
 
 import com.xbing.com.viewdemo.R;
 import com.xbing.com.viewdemo.service.utils.DateUtil;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class MyCalenarView extends FrameLayout {
 
@@ -305,7 +305,7 @@ public class MyCalenarView extends FrameLayout {
 	    	}
 	    }
 
-//		Log.d("msg", "max=" + max + ",year=" +mYear+ ",month=" +mMonth);
+//		ProxyTalker.d("msg", "max=" + max + ",year=" +mYear+ ",month=" +mMonth);
 //        int count = 1;
 //		for(int i=1;i<6;i++){
 //			for(int j=0;j<7;j++){

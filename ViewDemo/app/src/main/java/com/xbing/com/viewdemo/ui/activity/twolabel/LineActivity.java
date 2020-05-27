@@ -76,12 +76,13 @@ public class LineActivity extends Activity implements OnChartGestureListener,OnC
 
         // enable scaling and dragging
         mChart.setDragEnabled(true);
-        mChart.setScaleEnabled(true);
+        mChart.setScaleEnabled(true);       //设置放大缩小图表
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
 
         // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(true);
+
 
         // 设置图表背景颜色
 //         mChart.setBackgroundColor(Color.GRAY);
@@ -100,7 +101,7 @@ public class LineActivity extends Activity implements OnChartGestureListener,OnC
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);   //虚线设置
-        xAxis.setAxisMaximum(50f);   //设置x轴最大刻度
+        xAxis.setAxisMaximum(20f);   //设置x轴最大刻度
         xAxis.setDrawGridLines(false);  //设置是否需要画网格线
 //        xAxis.setDrawAxisLine(false);  //设置是否需要画X轴线
 //        xAxis.disableGridDashedLine();
@@ -240,6 +241,11 @@ public class LineActivity extends Activity implements OnChartGestureListener,OnC
                 set2.setFillColor(Color.BLACK);
             }
 
+            set1.setDrawCircles(false);    //设置是否拐点处画圆
+            set1.setMode(LineDataSet.Mode.LINEAR);    //设置线条模式HORIZONTAL_BEZIER:水平曲线  STEPPED:台阶式直线  CUBIC_BEZIER：三次贝塞尔曲线模式   LINEAR:默认直线
+            set1.setCubicIntensity(0.9f);
+            set1.setDrawFilled(true);
+            set2.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
             ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
             dataSets.add(set1); // add the datasets
             dataSets.add(set2);

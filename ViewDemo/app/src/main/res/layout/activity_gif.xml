@@ -5,9 +5,9 @@
     android:layout_height="match_parent">
 
     <com.xbing.com.viewdemo.ui.customview.GifView
-        android:id="@+id/gv_gif"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+    android:id="@+id/gv_gif"
+    android:layout_width="100dp"
+    android:layout_height="100dp" />
 
     <Button
         android:id="@+id/btn_pause"
@@ -22,5 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:text="show"/>
+
+    <com.xbing.com.viewdemo.ui.customview.GifView
+        android:id="@+id/gv_gif_pro"
+        android:layout_width="100dp"
+        android:layout_height="20dp" />
 
 </LinearLayout>

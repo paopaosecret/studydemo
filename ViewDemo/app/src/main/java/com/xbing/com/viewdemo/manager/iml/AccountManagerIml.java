@@ -8,6 +8,7 @@ import com.xbing.com.viewdemo.model.RequestCallback;
 import com.xbing.com.viewdemo.model.entity.Patient;
 import com.xbing.com.viewdemo.model.result.LoginResult;
 import com.xbing.com.viewdemo.model.result.RequestResult;
+import com.xbing.com.viewdemo.model.result.UserDetailResult;
 import com.xbing.com.viewdemo.service.net.OkHttpUtils;
 import com.xbing.com.viewdemo.service.net.callback.StringCallback;
 
@@ -144,7 +145,6 @@ public class AccountManagerIml implements IAccountManager {
         headers.put("Content-type", "application/json");
         headers.put("charset", "utf-8");
 
-
         OkHttpUtils.put()
                 .requestBody(body.toString())
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
@@ -181,4 +181,39 @@ public class AccountManagerIml implements IAccountManager {
     public String getUserToken(){
         return "";
     };
+
+    public void getApiInfo(String url, final RequestCallback callBack){
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-type", "application/json");
+        headers.put("charset", "utf-8");
+        Log.i(TAG,"url:"+url);
+        OkHttpUtils.get().url(url).headers(headers).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.e(TAG, "getApiInfo.onResponse error.", e);
+                UserDetailResult result = null;
+                result = new UserDetailResult();
+                result.setResultCode("-1");
+                callBack.onRequestComplete(result);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.i(TAG, "getApiInfo.onResponse: " + response.toString());
+
+                UserDetailResult result = null;
+                try
+                {
+                    result = gson.fromJson(response.toString(),
+                            UserDetailResult.class);
+                }
+                catch (Exception e)
+                {
+                    Log.e(TAG, "getApiInfo.onResponse.", e);
+                }
+                callBack.onRequestComplete(result);
+            }
+        });
+
+    }
 }

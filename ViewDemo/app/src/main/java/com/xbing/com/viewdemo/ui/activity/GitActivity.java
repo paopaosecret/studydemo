@@ -23,7 +23,7 @@ import rx.schedulers.Schedulers;
 public class GitActivity extends Activity {
 
     private GifView mGifView;
-
+    private GifView mGifViewPro;
     private TextView mShow;
 
     @Override
@@ -33,7 +33,8 @@ public class GitActivity extends Activity {
 
         mGifView = (GifView)findViewById(R.id.gv_gif);
         mGifView.setMovieResource(R.raw.walkingboy);
-
+        mGifViewPro= (GifView)findViewById(R.id.gv_gif_pro);
+        mGifViewPro.setMovieResource(R.raw.finish_goal);
         mShow = (TextView)findViewById(R.id.tv_show);
 
         findViewById(R.id.btn_pause).setOnClickListener(new View.OnClickListener() {
@@ -41,72 +42,15 @@ public class GitActivity extends Activity {
             public void onClick(View view) {
                 if(mGifView.isPaused()){
                     mGifView.setPaused(false);
+                    mGifViewPro.setPaused(false);
                 }else{
                     mGifView.setPaused(true);
+                    mGifViewPro.setPaused(true);
                 }
             }
         });
 
-        achieveObserver();
     }
 
-    private void achieveObserver() {
-        final String Tag = "ObserverTest";
 
-        Subscriber<String> subscriber = new Subscriber<String>() {
-            @Override
-            public void onCompleted() {
-                Log.i(Tag,"onCompleted()");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.i(Tag,"onError()");
-            }
-
-            @Override
-            public void onNext(String s) {
-                Log.i(Tag,"onNext():" + s);
-                mShow.setText(s);
-            }
-
-            @Override
-            public void onStart() {
-                Log.i(Tag,"onStart():");
-                super.onStart();
-            }
-        } ;
-
-        Observer<String> observer = new Observer<String>(){
-
-            @Override
-            public void onCompleted() {
-                Log.i(Tag,"onCompleted()");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.i(Tag,"onError()");
-            }
-
-            @Override
-            public void onNext(String s) {
-                Log.i(Tag,"onNext():" + s);
-                mShow.setText(s);
-            }
-        };
-
-
-        Observable.create(new Observable.OnSubscribe<String>() {
-            @Override
-            public void call(Subscriber<? super String> subscriber) {
-                Log.i(Tag,"call");
-                subscriber.onNext("onNext->word");
-                subscriber.onCompleted();
-                subscriber.onError(new Exception());
-            }
-        }).subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(subscriber);
-    }
 }

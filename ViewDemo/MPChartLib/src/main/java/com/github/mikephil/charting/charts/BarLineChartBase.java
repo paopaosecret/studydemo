@@ -540,15 +540,21 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
-
-        if (mChartTouchListener == null || mData == null)
+        Log.i("TOUCH","TOUCH: ----》2" );
+        if (mChartTouchListener == null || mData == null){
+            Log.i("TOUCH","TOUCH: ----》3" );
             return false;
+        }
+
 
         // check if touch gestures are enabled
-        if (!mTouchEnabled)
+        if (!mTouchEnabled) {
+            Log.i("TOUCH","TOUCH: ----》4" );
             return false;
-        else
+        }else {
+            Log.i("TOUCH","TOUCH: ----》5" );
             return mChartTouchListener.onTouch(this, event);
+        }
     }
 
     @Override

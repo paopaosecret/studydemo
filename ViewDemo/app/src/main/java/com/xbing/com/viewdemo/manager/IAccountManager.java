@@ -30,4 +30,11 @@ public interface IAccountManager {
      */
     void setDefaultPatient(Long patientId, RequestCallback callback);
 
+    /**
+     * 设置默认患者
+     * @param url
+     * @param callback
+     */
+    void getApiInfo(String url, RequestCallback callback);
+
 }

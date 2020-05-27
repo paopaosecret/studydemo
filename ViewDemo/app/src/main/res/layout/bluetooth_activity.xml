@@ -91,6 +91,30 @@
             android:text="获取连接状态"
             />
 
+        <Button
+            android:id="@+id/btn_test_reflex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="测试反射"
+            />
+
+        <Button
+            android:id="@+id/btn_open_discover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="打开蓝牙可见性"
+            />
+
+        <Button
+            android:id="@+id/btn_close_discover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5px"
+            android:text="关闭蓝牙可见性"
+            />
+
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="match_parent"

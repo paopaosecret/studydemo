@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.xbing.com.viewdemo.ui.customview.LineChartView
         android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
+        android:padding="50dp"
         android:id="@+id/lcv_chart"/>
 
 
-    <Button
-        android:id="@+id/btn_start"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="开始"/>
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_pause"
+        <Button
+            android:id="@+id/btn_start"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始"/>
+
+        <Button
+            android:id="@+id/btn_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="暂停"/>
+
+        <Button
+            android:id="@+id/btn_enlarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="放大"/>
+    </LinearLayout>
+
+
+    <com.xbing.com.viewdemo.ui.customview.LineChart2View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="暂停"/>
+        android:layout_height="match_parent"
+        android:id="@+id/lcv_chart2"/>
 </LinearLayout>

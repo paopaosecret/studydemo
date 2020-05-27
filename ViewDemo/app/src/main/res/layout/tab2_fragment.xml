@@ -11,4 +11,10 @@
         android:text="tab2"
         android:textColor="#ffffff"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_aidl_method"
+        android:text="获取aidl方法"/>
+
 </LinearLayout>

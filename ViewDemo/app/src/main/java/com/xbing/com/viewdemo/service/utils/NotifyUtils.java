@@ -8,6 +8,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.service.notification.StatusBarNotification;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.xbing.com.viewdemo.ui.activity.MainActivity;
@@ -39,7 +41,7 @@ public class NotifyUtils {
     }
 
     /**
-     * api11 之后显示通知的方式  可以使用builder.getNotification();
+     * api_11 之后显示通知的方式  可以使用builder.getNotification();
      * @param context
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB) @SuppressLint("NewApi")
@@ -62,7 +64,7 @@ public class NotifyUtils {
     }
 
     /**
-     * api16 之后显示通知的方式,可以使用builder.build();
+     * api_16 之后显示通知的方式,可以使用builder.build();
      * @param context
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB) @SuppressLint("NewApi")
@@ -121,5 +123,23 @@ public class NotifyUtils {
     public static void cancelAllNotify(Context context){
         NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancelAll();
+    }
+
+    /**
+     * 获取全部通知
+     */
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void getAllNotify(Context context){
+        NotificationManager manager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        StatusBarNotification[] statusBarNotifications =  manager.getActiveNotifications();
+
+        if(statusBarNotifications.length > 0){
+            for(int i = 0; i < statusBarNotifications.length; i++){
+                Log.i("motification","notication:" + statusBarNotifications[i].getNotification().tickerText);
+            }
+        }else{
+            Log.i("motification","notication count:" + 0);
+        }
+
     }
 }

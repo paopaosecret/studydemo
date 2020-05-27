@@ -105,7 +105,7 @@ public class ImageActivity extends Activity implements View.OnClickListener{
         ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         Bitmap bitmap = BitmapFactory.decodeStream(bais);
         if(bitmap != null){
-            mShow.setText("图片大小：" + bitmap.getByteCount() + "byte" + "stream length:" + baos.toByteArray().length);
+            mShow.setText("图片大小：" + bitmap.getByteCount() + "byte" + ",stream length:" + baos.toByteArray().length);
             mImage.setImageBitmap(bitmap);
 //            Toast.makeText(this,"test" +  bitmap.getByteCount(),Toast.LENGTH_SHORT).show();
             try {

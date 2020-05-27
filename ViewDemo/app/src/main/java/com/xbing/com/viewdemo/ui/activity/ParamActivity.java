@@ -1,6 +1,8 @@
 package com.xbing.com.viewdemo.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -26,6 +28,11 @@ public class ParamActivity extends Activity {
     protected void onStart() {
         super.onStart();
         Log.d("liftcycle",getClass().getSimpleName()+":onstart()");
+        Intent intent = new Intent();
+        intent.setAction("");
+        intent.addCategory("");
+        intent.setDataAndType(Uri.parse(""),"");
+
     }
 
     @Override

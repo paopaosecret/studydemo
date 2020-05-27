@@ -1,11 +1,20 @@
 package com.xbing.com.viewdemo.ui.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -18,6 +27,7 @@ public class AnimatorActivity extends Activity {
 
     TextView mView;
     RadioButton mSelect;
+    ImageView mImageView;
 
     public int index = 0;
 
@@ -27,7 +37,10 @@ public class AnimatorActivity extends Activity {
         setContentView(R.layout.animator_activity);
         mView = (TextView) findViewById(R.id.tv_animator);
         mSelect = (RadioButton)findViewById(R.id.rb_select);
-
+        mImageView = (ImageView) findViewById(R.id.iv_power) ;
+        Animation powerAnimator = AnimationUtils.loadAnimation(this,R.anim.power_anim);
+        mImageView.startAnimation(powerAnimator);
+        mImageView.clearAnimation();
         findViewById(R.id.btn_move).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

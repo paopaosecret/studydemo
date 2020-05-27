@@ -1,7 +1,6 @@
 package com.example.javatest.threadtest.executor;
 
-import java.util.ArrayList;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -14,10 +13,13 @@ public class MyExecutor {
 
     private ThreadPoolExecutor mThreadPoolExecutor;
 
-    private static final int MAX_THREAD_COUNT = 5;            //线程池最大线程数量，同一时刻线程池允许运行的最大数量，如果大于该数量，执行拒绝策略
-    private static final int CORE_THREAD_COUNT = 3;           //线程池核心线程数量，线程池初始化的时候创建的线程数量
-    private static final long KEEP_ALIVE_TIME = 3600;         //等待队列的任务存活时间长度
-    private static final int WAIT_THREAD_COUNT = 2;           //等待队列数量
+    /* 重要 最大线程数量  不是核心线程数量个数加上等待队列的任务个数的最大值
+     * 而是 线程池允许运行的最大线程数量 **/
+
+    private static final int MAX_THREAD_COUNT = 2;            //线程池最大线程数量，同一时刻线程池（允许运行-这点很重要）的最大数量，如果大于该数量，执行拒绝策略
+    private static final int CORE_THREAD_COUNT = 2;           //线程池核心线程数量，线程池初始化的时候创建的线程数量
+    private static final long KEEP_ALIVE_TIME = 0;         //空闲线程存活时间（当线程）keepAliveTime 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间
+    private static final int WAIT_THREAD_COUNT = 3;           //等待队列线程数量
 
     /**
      * 等待线程队列:有界的任务队列
@@ -27,7 +29,8 @@ public class MyExecutor {
      * 3.如果等待队列已满，如果总线程数不大于最大线程数量MAX_THREAD_COUNT，创建新的线程执行该新任务
      * 4.如果总线程数大于最大线程数量，则执行拒绝策略
      */
-    private ArrayBlockingQueue<Runnable> mWaitQueue = new ArrayBlockingQueue<Runnable>(WAIT_THREAD_COUNT);
+//    private ArrayBlockingQueue<Runnable> mWaitQueue = new ArrayBlockingQueue<Runnable>(WAIT_THREAD_COUNT);
+    private LinkedBlockingQueue<Runnable> mWaitQueue = new LinkedBlockingQueue<Runnable>(5);
 
     /**
      * 线程池使用其创建新的线程
@@ -44,11 +47,12 @@ public class MyExecutor {
 
 
     private static MyExecutor instatce;
+    private static Object locked = new Object();
 
     public static MyExecutor getInstance(){
-        if(instatce != null){
-            synchronized (instatce){
-                if(instatce != null){
+        if(instatce == null){
+            synchronized (locked){
+                if(instatce == null){
                     instatce = new MyExecutor();
                 }
             }
@@ -61,10 +65,13 @@ public class MyExecutor {
                 CORE_THREAD_COUNT,
                 MAX_THREAD_COUNT,
                 KEEP_ALIVE_TIME,
-                TimeUnit.SECONDS,
+                TimeUnit.MILLISECONDS,
                 mWaitQueue,
                 mThreadFactory,
-                new ThreadPoolExecutor.DiscardPolicy()    //线城池达到最大线程数量，再接收到任务直接丢弃
+//                new ThreadPoolExecutor.DiscardPolicy()    //线城池达到最大线程数量，再接收到任务执行丢弃策略，直接丢弃
+//                new ThreadPoolExecutor.DiscardOldestPolicy() //线城池达到最大线程数量，再接收到任务执行丢弃策略，丢弃老的任务
+                new ThreadPoolExecutor.AbortPolicy() //线城池达到最大线程数量，再接收到任务执行则提示异常
+//                new ThreadPoolExecutor.CallerRunsPolicy()   //线城池达到最大线程数量，再接收到任务 在execute 方法的调用线程中执行任务
         );
     }
 

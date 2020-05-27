@@ -1,6 +1,5 @@
 package com.xbing.com.viewdemo.ui.customview;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,8 +9,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Scroller;
 import android.widget.Toast;
-
-import java.util.Random;
 
 /**
  * Created by zhaobing on 2016/6/14.

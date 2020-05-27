@@ -10,7 +10,7 @@ import com.xbing.com.viewdemo.R;
  * Created by bing.zhao on 2017/1/3.
  */
 
-class JniTestActivity extends Activity {
+public class JniTestActivity extends Activity {
 
 
     @Override

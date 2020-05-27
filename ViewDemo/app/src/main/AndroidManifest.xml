@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.xbing.com.viewdemo">
-
+    <permission android:name="android.permission.SET_PREFERRED_APPLICATIONS"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="signature" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     //允许程序打开网络sockets
@@ -20,6 +25,12 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     //允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等
     <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.REORDER_TASKS"/>
+
+    作者：我是你森哥哥
+    链接：https://www.jianshu.com/p/cda1c9b41d66
+    來源：简书
+    简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
     //允许程序录制音频
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     //允许应用程序修改全局声音设置的权限
@@ -35,6 +46,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     //允许程序发现和配对蓝牙设备
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> 读记录
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" /> 写记录
 
 
     //如需GPS相关权限，可配置以下权限
@@ -53,13 +68,15 @@
     //其他
     //允许程序读取用户联系人数据
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     //允许访问振动设备
     <uses-permission android:name="android.permission.VIBRATE"/>
     //允许一个程序在系统启动完成时自定启动
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     //允许一个程序接收到 ACTION_BOOT_COMPLETED广播在系统完成启动
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
 
     //接收IM消息的自定义权限
     <permission android:name="com.xbing.com.viewdemo.permission.RECEIVE_MSG" android:protectionLevel="signature"/>
@@ -70,6 +87,14 @@
     //使用接收来电权限
     <uses-permission android:name="com.xbing.com.viewdemo.permission.INCOMING_CALL"/>
 
+
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW"/>
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -82,10 +107,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="y7ata0"/>
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ParamActivity"/>
@@ -110,7 +143,74 @@
         <activity android:name=".ui.activity.JniTestActivity"/>
         <activity android:name=".ui.activity.HelloOpenGlEsActivity"/>
         <activity android:name=".ui.activity.RLYActivity"/>
+        <activity android:name=".ui.activity.RecyclerViewActivity"/>
+        <activity android:name=".ui.activity.WuziqiActivity"/>
+        <activity android:name=".ui.activity.DrawerActivity"/>
+        <activity android:name=".ui.activity.SwipMenuActivity"/>
+        <activity android:name=".moudle.rx.RxActivity"/>
+        <activity android:name=".ui.activity.QQLoginActivity"/>
+        <activity android:name=".moudle.eventdispatch.DispatchActivity"/>
+        <activity android:name=".ui.customview.draglistview.DragListActivity"/>
+        <activity android:name=".ui.activity.GalleryActivity"/>
+        <activity android:name=".ui.activity.PopupWindowActivity"/>
+        <activity android:name=".ui.activity.LifeCycleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.lifecycle1"/>
+                <action android:name="android.intent.action.lifecycle2"/>
+                <category android:name="lifecycle1"/>
+                <category android:name="lifecycle2"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.DialogActivity"
+            android:theme="@style/MyDialogStyle">
+        </activity>
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1106060896" />
+            </intent-filter>
+        </activity>
 
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <activity android:name=".ui.activity.TestBookSerivceActivity"/>
+        <activity android:name=".moudle.mvp.activity.LoginActivity"/>
+        <activity android:name=".ui.activity.ViewPagerActivity"
+            android:theme="@style/StyledIndicators"/>
+
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+        <activity android:name=".moudle.map.MapActivity"/>
+        <activity android:name=".ui.activity.JavaJsInteractiveActivity"/>
+        <activity android:name=".ui.activity.twolabel.CommandActivity"/>
+        <activity android:name=".ui.activity.FloatActivity"/>
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
+        <service android:name=".aidl.AIDLServiceImp"
+            android:exported="true"
+            android:process=":aidl">
+            <intent-filter >
+                <action android:name="forServiceAidl" > </action>
+            </intent-filter>
+        </service>
+
+        <service android:name=".aidl.BookManagerService"
+            android:process=":aidl"></service>
 
         <service
             android:name="com.xbing.com.viewdemo.ui.service.MyService"
@@ -119,7 +219,15 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
+        <service android:name=".ui.service.NeNotificationService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:label="NotificationMonitor"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+        </service>
         // SDK核心服务配置
         <service android:name="com.yuntongxun.ecsdk.ECClientService"
             android:enabled="true" android:process=":push" />
@@ -128,6 +236,10 @@
         <service android:name="com.yuntongxun.ecsdk.ECClientService$InnerService"
             android:enabled="true" android:process=":push" />
 
+
+
+        <service android:name=".ui.service.HeartService"/>
+        <service android:name=".ui.service.FloatService"/>
         // 以下两项为SDK内部处理项，其中booter.Alarm在v5.1.9r以后版本提供
         <receiver android:name="com.yuntongxun.ecsdk.booter.CCPReceivers$AlarmReceiver"
             android:process=":push"/>
@@ -153,19 +265,19 @@
             </intent-filter>
         </receiver>
 
-        // 声明自定义通知的广播接收器（需要替换包名，详见注意事项）
-        <receiver
-            android:name=".service.YuntxNotifyReceiver"
-            android:exported="false">
-            <intent-filter>
-                // 接收push消息
-                // action匹配规则{packageName + ".action" + "功能"}
-                <action android:name="com.xbing.com.viewdemo.action.VOIP_CALL" />
-                <action android:name="com.xbing.com.viewdemo.action.MESSAGE" />
-                <action android:name="com.xbing.com.viewdemo.action.NOTIFICATION_CLICK" />
-                <action android:name="com.xbing.com.viewdemo.action.PERSON_VERSION" />
-            </intent-filter>
-        </receiver>
+
+        <provider
+            android:name=".service.cpsp.SPContentProvider"
+            android:authorities="com.xbing.com.viewdemo.service.cpsp.SPContentProvider"
+            android:exported="true"/>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="FM6PAiADPCeUhdzTOQxNbYhEQFKU5qKY" />
+
+        <meta-data
+            android:name="com.openinstall.APP_KEY"
+            android:value="y7ata0"/>
     </application>
 
 </manifest>

@@ -37,6 +37,5 @@ public class StudentDao {
         mRealmHelper.beginTransaction();
         student.clear();
         mRealmHelper.commitTransaction();
-
     }
 }

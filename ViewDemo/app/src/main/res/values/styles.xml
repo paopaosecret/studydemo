@@ -1,9 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
     <style name="translucent_dialog" parent="android:style/Theme.Dialog">
@@ -21,7 +19,6 @@
     <style name="ActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/action_button_height</item>
-        <item name="android:minWidth">@dimen/action_button_min_width</item>
         <item name="android:paddingLeft">@dimen/action_button_padding_horizontal</item>
         <item name="android:paddingRight">@dimen/action_button_padding_horizontal</item>
         <item name="android:background">@drawable/bg_button_custom_dialog</item>
@@ -39,5 +36,76 @@
     <style name="Widget_GifView">
     </style>
 
+    <style name="Wrap2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Wrap2.Gray">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style parent="@android:style/Widget.CompoundButton.CheckBox" name="CheckboxStyle">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
+    <style name="NavPage">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+        <!-- <item name="android:background">@drawable/nav_page</item> -->
+        <item name="android:background">@color/navpage</item>
+    </style>
+    <style name="MyDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="StyledIndicators" parent="Theme.AppCompat">
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+    </style>
+
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/tab_indicator</item>
+        <item name="android:dividerPadding">8dp</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">8dp</item>
+    </style>
+
+    <declare-styleable name="Banner">
+        <attr format="integer" name="delay_time"/>
+        <attr format="integer" name="scroll_time"/>
+        <attr format="boolean" name="is_auto_play"/>
+        <attr format="color|reference" name="title_background"/>
+        <attr format="color" name="title_textcolor"/>
+        <attr format="dimension" name="title_textsize"/>
+        <attr format="dimension" name="title_height"/>
+        <attr format="dimension" name="indicator_width"/>
+        <attr format="dimension" name="indicator_height"/>
+        <attr format="dimension" name="indicator_margin"/>
+        <attr format="reference" name="indicator_drawable_selected"/>
+        <attr format="reference" name="indicator_drawable_unselected"/>
+        <attr format="reference" name="banner_layout"/>
+        <attr format="reference" name="banner_default_image"/>
+        <attr format="enum" name="image_scale_type">
+            <enum name="center" value="0"/>
+            <enum name="center_crop" value="1"/>
+            <enum name="center_inside" value="2"/>
+            <enum name="fit_center" value="3"/>
+            <enum name="fit_end" value="4"/>
+            <enum name="fit_start" value="5"/>
+            <enum name="fit_xy" value="6"/>
+            <enum name="matrix" value="7"/>
+        </attr>
+    </declare-styleable>
 
 </resources>

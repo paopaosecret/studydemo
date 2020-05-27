@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.activity.MainActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -146,9 +147,131 @@
                 android:layout_height="wrap_content"
                 android:text="跳到IM页面"/>
 
+            <Button
+                android:id="@+id/btn_recyclerview"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到RecyclerView"/>
+            <Button
+                android:id="@+id/btn_wuziqi"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到五子棋页面"/>
 
+            <Button
+                android:id="@+id/btn_drawer"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到侧滑页面"/>
 
+            <Button
+            android:id="@+id/btn_swip_menu_list_view"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳到滑动删除listView页面"/>
+
+            <Button
+                android:id="@+id/btn_rx"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳到RxAndroid页面"/>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="login "/>
+
+            <Button
+                android:id="@+id/btn_dispatch"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="事件分发"/>
+
+            <Button
+                android:id="@+id/btn_dragview"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拖动ListView"/>
+
+            <Button
+                android:id="@+id/btn_gallery"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gallary"/>
+
+            <Button
+                android:id="@+id/btn_life_cycle"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="生命周期测试"/>
+
+            <Button
+                android:id="@+id/btn_map"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的地图"/>btn_bookService
+            <Button
+                android:id="@+id/btn_bookService"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BookService"/>
+
+            <Button
+                android:id="@+id/btn_javajs_interactive"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JavaJs交互"/>
+
+            <Button
+                android:id="@+id/btn_mvp_login"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MVP页面"/>
+            <Button
+                android:id="@+id/btn_viewpager"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Viewpager"/>
+
+            <Button
+                android:id="@+id/btn_popupwindow"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Popupwindow"/>
+
+            <Button
+                android:id="@+id/btn_floatwindow"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="悬浮窗"/>
+
+            <Button
+                android:id="@+id/btn_command"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="命令行"/>
         </LinearLayout>
 
     </ScrollView>
 </LinearLayout>
+
+

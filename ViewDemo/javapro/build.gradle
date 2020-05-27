@@ -1,12 +1,18 @@
 apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'java.MainRun'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile files('libs/jxl-2.6.jar')
 }
 
 tasks.withType(JavaCompile){
     options.encoding = "UTF-8"
 }
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+dependencies {
+    compile 'com.google.code.gson:gson:2.2.2'
+}

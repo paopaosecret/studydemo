@@ -1,6 +1,9 @@
 package com.example;
 
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -11,7 +14,35 @@ import java.util.TreeSet;
  * Created by bing.zhao on 2017/1/13.
  */
 
-public class TestClss {
+public class TestClss implements InvocationHandler {
+
+    /** 需要代理的目标类 */
+    private Object target;
+
+    /**
+     * 写法固定，aop专用:绑定委托对象并返回一个代理类
+     *
+     * @param target
+     * @return
+     */
+    public Object bind(Object target) {
+        this.target = target;
+        return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
+    }
+
+
+    @Override
+    public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+        Object result = null;
+        // 切面之前执行
+        System.out.println("切面之前执行");
+        // 执行业务
+        result = method.invoke(target, objects);
+        // 切面之后执行
+        System.out.println("切面之后执行");
+
+        return result;
+    }
 
     static class Number{
 
