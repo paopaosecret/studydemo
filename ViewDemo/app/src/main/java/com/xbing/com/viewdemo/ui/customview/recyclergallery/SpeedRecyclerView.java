@@ -31,6 +31,7 @@ public class SpeedRecyclerView extends RecyclerView {
         velocityX = solveVelocity(velocityX);
         velocityY = solveVelocity(velocityY);
         return super.fling(velocityX, velocityY);
+//        return false;
     }
 
     private int solveVelocity(int velocity) {

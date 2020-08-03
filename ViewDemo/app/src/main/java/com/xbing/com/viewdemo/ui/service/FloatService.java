@@ -4,27 +4,28 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xbing.com.viewdemo.R;
 import com.xbing.com.viewdemo.utils.DpPxUtil;
 
-public class FloatService extends Service implements View.OnTouchListener{
+public class FloatService extends Service{
 
-    ConstraintLayout constraintLayout;
+    FrameLayout mLayout;
     WindowManager.LayoutParams params;
     WindowManager windowManager;
 
-    ImageButton imageButton;
+    TextView tv_title;
 
     //状态栏高度
     int statusBarHeight = -1;
@@ -79,35 +80,43 @@ public class FloatService extends Service implements View.OnTouchListener{
             Log.d("FloatService","FloatService params == null");
             //赋值WindowManager&LayoutParam.
             params = new WindowManager.LayoutParams();
-            //设置type.系统提示型窗口，一般都在应用程序窗口之上.
-            params.type = WindowManager.LayoutParams.TYPE_TOAST;
+
             //设置效果为背景透明.
             params.format = PixelFormat.RGBA_8888;
-            //设置flags.不可聚焦及不可使用按钮对悬浮窗进行操控.
-            params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+            // 当悬浮窗显示的时候可以获取到焦点
+            params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                    | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR
+                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+
+            // 需要适配 8.0，当 8.0 以上的版本
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            } else {
+                params.type = WindowManager.LayoutParams.TYPE_PHONE;
+            }
 
             //设置窗口初始停靠位置.
             params.gravity = Gravity.LEFT | Gravity.TOP;
+
             params.x = 0;
+
             params.y = 0;
 
             //设置悬浮窗口长宽数据.
-            //注意，这里的width和height均使用px而非dp.这里我偷了个懒
-            //如果你想完全对应布局设置，需要先获取到机器的dpi
-            //px与dp的换算为px = dp * (dpi / 160).
-            params.width = DpPxUtil.dip2px(this, 50);
-            params.height = DpPxUtil.dip2px(this, 50);
+            params.width = DpPxUtil.dip2px(this, windowManager.getDefaultDisplay().getWidth());
+            params.height = DpPxUtil.dip2px(this, 69);
         }
-        if(constraintLayout == null){
-            Log.d("FloatService","FloatService constraintLayout == null");
+        if(mLayout == null){
+            Log.d("FloatService","FloatService mLayout == null");
             LayoutInflater inflater = LayoutInflater.from(getApplication());
             //获取浮动窗口视图所在布局.
-            constraintLayout = (ConstraintLayout) inflater.inflate(R.layout.float_window, null);
+            mLayout = (FrameLayout) inflater.inflate(R.layout.float_window, null);
             //添加toucherlayout
-            windowManager.addView(constraintLayout,params);
+            windowManager.addView(mLayout,params);
         }
         //主动计算出当前View的宽高信息.
-        constraintLayout.measure(View.MeasureSpec.UNSPECIFIED,View.MeasureSpec.UNSPECIFIED);
+        mLayout.measure(View.MeasureSpec.UNSPECIFIED,View.MeasureSpec.UNSPECIFIED);
         //用于检测状态栏高度.
         int resourceId = getResources().getIdentifier("status_bar_height","dimen","android");
         if (resourceId > 0)
@@ -116,54 +125,29 @@ public class FloatService extends Service implements View.OnTouchListener{
             Log.d("FloatService","FloatService statusBarHeight =" + statusBarHeight);
         }
 
-        if(imageButton == null){
+        if(tv_title == null){
             Log.d("FloatService","FloatService statusBarHeight =" + statusBarHeight);
             //浮动窗口按钮.
-            imageButton = constraintLayout.findViewById(R.id.imageButton1);
-            imageButton.setImageResource(R.drawable.ic_launcher);
-            imageButton.setOnTouchListener(this);
+            tv_title = mLayout.findViewById(R.id.tv_title);
+            tv_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(FloatService.this,"跳转到接单页面", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        try {
+            windowManager.updateViewLayout(mLayout, params);
+        } catch (IllegalArgumentException e) {
+            windowManager.addView(mLayout, params);
         }
     }
 
     @Override
     public void onDestroy() {
         Log.d("FloatService", "onDestroy");
-        windowManager.removeViewImmediate(constraintLayout);
+        windowManager.removeViewImmediate(mLayout);
         super.onDestroy();
-    }
-
-    int index = 0;
-    void onClick(){
-        Log.d("FloatService", "onClick: " + ++index);
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_MOVE:
-                //ImageButton我放在了布局中心，布局一共300dp
-                params.x = (int)event.getRawX();
-                //这就是状态栏偏移量用的地方
-                params.y = (int) event.getRawY() - DpPxUtil.dip2px(FloatService.this, 50);
-                windowManager.updateViewLayout(constraintLayout,params);
-                break;
-
-            case MotionEvent.ACTION_UP:
-                if(event.getRawX() < windowManager.getDefaultDisplay().getWidth()/2){
-                    params.x = 0;
-                }else{
-                    params.x =  windowManager.getDefaultDisplay().getWidth() - DpPxUtil.dip2px(FloatService.this, 50);
-                }
-
-                //这就是状态栏偏移量用的地方
-                params.y = (int) event.getRawY() - DpPxUtil.dip2px(FloatService.this, 50);
-                windowManager.updateViewLayout(constraintLayout,params);
-                onClick();
-                break;
-
-
-        }
-
-        return false;
     }
 }

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
+import com.xbing.com.viewdemo.MyApplication;
 import com.xbing.com.viewdemo.R;
 import com.xbing.com.viewdemo.ui.service.FloatService;
 

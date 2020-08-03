@@ -17,7 +17,14 @@ public class DpPxUtil {
         return (int) (dpValue * scale + 0.5f);
     }
 
-
+    /**
+     * 获取屏幕的宽度
+     * @param context
+     * @return
+     */
+    public static int getScreenWidth(Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
+    }
     /**
      *	px2dp
      */

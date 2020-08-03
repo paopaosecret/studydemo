@@ -125,8 +125,6 @@ public class ViewPagerActivity extends Activity implements ViewPager.OnPageChang
         indicator.setCurrentItem(1);
 
         initBanner();
-
-
     }
 
     private void initBanner() {
