@@ -15,7 +15,7 @@ import java.util.List;
 
 public class GralleryVPAdapter extends PagerAdapter {
     private List<String> mDataList;
-    private static final int MAX_COUNT = 6;
+    public static final int MAX_COUNT = 6;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
     public GralleryVPAdapter() {

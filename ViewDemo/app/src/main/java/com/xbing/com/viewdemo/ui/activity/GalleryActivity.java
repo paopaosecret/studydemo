@@ -2,10 +2,14 @@ package com.xbing.com.viewdemo.ui.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.xbing.com.viewdemo.R;
 import com.xbing.com.viewdemo.ui.adapter.CardAdapter;
@@ -24,10 +28,12 @@ public class GalleryActivity extends Activity {
 
     private RecyclerView mRecyclerView;
     private ViewPager viewPager;
+    private LinearLayout llJump;
     private List<Integer> mList = new ArrayList<>();
     private CardScaleHelper mCardScaleHelper = null;
     private Runnable mBlurRunnable;
     private int mLastPos = -1;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class GalleryActivity extends Activity {
         mCardScaleHelper.attachToRecyclerView(mRecyclerView);
 
         viewPager = findViewById(R.id.vp_content);
+        llJump = findViewById(R.id.ll_jump);
         initViewPager();
     }
 
@@ -73,6 +80,28 @@ public class GalleryActivity extends Activity {
         viewPager.setPageMargin(30);//设置viewpage之间的间距
         viewPager.setClipChildren(false);
 //        viewPager.setPageTransformer(true, new CardTransformer());      //设置中间放大效果
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == GralleryVPAdapter.MAX_COUNT - 1){
+                    llJump.setVisibility(View.VISIBLE);
+                }else{
+                    llJump.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 }
 

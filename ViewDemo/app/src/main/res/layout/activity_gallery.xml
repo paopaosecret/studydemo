@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
+
     android:orientation="vertical"
     tools:context=".ui.activity.GalleryActivity">
 
@@ -15,14 +15,47 @@
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"/>
 
-    <android.support.v4.view.ViewPager
+    <FrameLayout
         android:layout_below="@+id/recyclerView"
-        android:id="@+id/vp_content"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="50dp"
+        android:clipChildren="false"
         android:layout_marginTop="20dp"
-        android:clipChildren="false"/>
+        android:layout_height="200dp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="50dp"
+            android:clipChildren="false"/>
+
+        <LinearLayout
+            android:id="@+id/ll_jump"
+            android:layout_width="80dp"
+            android:layout_height="200dp"
+            android:layout_gravity="right"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:text="跳转1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:text="跳转2"/>
+        </LinearLayout>
+    </FrameLayout>
+
 
 </RelativeLayout>
