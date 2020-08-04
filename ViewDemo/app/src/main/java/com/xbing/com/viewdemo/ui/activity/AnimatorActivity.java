@@ -39,8 +39,21 @@ public class AnimatorActivity extends Activity {
         mSelect = (RadioButton)findViewById(R.id.rb_select);
         mImageView = (ImageView) findViewById(R.id.iv_power) ;
         Animation powerAnimator = AnimationUtils.loadAnimation(this,R.anim.power_anim);
-        mImageView.startAnimation(powerAnimator);
-        mImageView.clearAnimation();
+
+        findViewById(R.id.btn_bottom_start).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mImageView.startAnimation(powerAnimator);
+            }
+        });
+
+        findViewById(R.id.btn_bottom_stop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mImageView.clearAnimation();
+            }
+        });
+
         findViewById(R.id.btn_move).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

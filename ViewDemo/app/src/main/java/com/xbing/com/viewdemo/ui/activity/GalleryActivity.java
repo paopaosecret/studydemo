@@ -24,15 +24,16 @@ import java.util.List;
  * Created by bing.zhao on 2017/5/24.
  */
 
-public class GalleryActivity extends Activity {
+public class GalleryActivity extends Activity implements View.OnClickListener {
 
     private RecyclerView mRecyclerView;
     private ViewPager viewPager;
-    private LinearLayout llJump;
+
     private List<Integer> mList = new ArrayList<>();
     private CardScaleHelper mCardScaleHelper = null;
     private Runnable mBlurRunnable;
     private int mLastPos = -1;
+    private GralleryVPAdapter vpAdapter;
 
 
     @Override
@@ -61,7 +62,8 @@ public class GalleryActivity extends Activity {
         mCardScaleHelper.attachToRecyclerView(mRecyclerView);
 
         viewPager = findViewById(R.id.vp_content);
-        llJump = findViewById(R.id.ll_jump);
+        findViewById(R.id.btn_add).setOnClickListener(this);
+        findViewById(R.id.btn_remove).setOnClickListener(this);
         initViewPager();
     }
 
@@ -74,7 +76,7 @@ public class GalleryActivity extends Activity {
         dataList.add("位置5");
         dataList.add("位置6");
         dataList.add("位置7");
-        GralleryVPAdapter vpAdapter = new GralleryVPAdapter(GalleryActivity.this, dataList);
+        vpAdapter = new GralleryVPAdapter(GalleryActivity.this, dataList);
         viewPager.setAdapter(vpAdapter);
         viewPager.setOffscreenPageLimit(2);//预加载2个
         viewPager.setPageMargin(30);//设置viewpage之间的间距
@@ -89,11 +91,7 @@ public class GalleryActivity extends Activity {
 
             @Override
             public void onPageSelected(int position) {
-                if(position == GralleryVPAdapter.MAX_COUNT - 1){
-                    llJump.setVisibility(View.VISIBLE);
-                }else{
-                    llJump.setVisibility(View.GONE);
-                }
+
             }
 
             @Override
@@ -102,6 +100,29 @@ public class GalleryActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        List<String> dataList = new ArrayList<>();
+        switch (v.getId()){
+            case R.id.btn_add:
+                dataList.add("位置1");
+                dataList.add("位置2");
+                dataList.add("位置3");
+                dataList.add("位置4");
+                dataList.add("位置5");
+                dataList.add("位置6");
+                dataList.add("位置7");
+                vpAdapter.setmDataList(dataList);
+                vpAdapter.notifyDataSetChanged();
+                break;
+            case R.id.btn_remove:
+                dataList.add("位置1");
+                vpAdapter.setmDataList(dataList);
+                vpAdapter.notifyDataSetChanged();
+                break;
+        }
     }
 }
 
