@@ -28,4 +28,36 @@
         android:layout_width="100dp"
         android:layout_height="20dp" />
 
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用webview加载gif"/>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layerType="software"
+        android:background="@drawable/bg"/>
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用Glide加载gif"/>
+
+    <ImageView
+        android:id="@+id/iv_gif"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用VideoView加载gif"/>
 </LinearLayout>
